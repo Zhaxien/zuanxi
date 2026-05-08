@@ -1,0 +1,109 @@
+/* style.css - Dekorasi Zuanxi Music */
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    padding: 20px;
+    background: linear-gradient(to bottom, #1db95433, #000);
+    text-align: center;
+}
+
+h1 {
+    color: #1DB954;
+    margin: 0 0 15px 0;
+}
+
+#search {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: #282828;
+    color: white;
+    outline: none;
+}
+
+/* Daftar Lagu */
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.song-card {
+    background: #181818;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.song-card:hover {
+    background: #282828;
+}
+
+.info h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.info p {
+    margin: 5px 0 0 0;
+    color: #b3b3b3;
+    font-size: 0.8rem;
+}
+
+/* Player Bar Melayang di Bawah */
+.player-bar {
+    background: #000;
+    border-top: 1px solid #282828;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#player-display {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 10px;
+    display: none; /* Sembunyi kalau belum ada lagu */
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: none;
+}
+
+.now-playing {
+    text-align: center;
+}
+
+.now-playing h4 {
+    margin: 0;
+    color: #1DB954;
+}
+
+.now-playing p {
+    margin: 5px 0 0 0;
+    font-size: 0.8rem;
+    color: #888;
+}
