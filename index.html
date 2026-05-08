@@ -3,38 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuanxi | Resso Style</title>
+    <title>Zuanxi Metro Music | Player</title>
     <style>
-        /* Gaya Dasar ala Aplikasi Musik */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background-color: #000;
             color: white;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+        }
+
+        /* Container Player di Atas */
+        #player-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 20px auto;
+            background: #111;
+            border: 2px solid #0078D7;
+            display: none; /* Sembunyi sebelum lagu dipilih */
+            aspect-ratio: 16 / 9;
+        }
+
+        iframe { width: 100%; height: 100%; border: none; }
+
+        header { margin-bottom: 20px; text-align: center; }
+        h1 { font-weight: 300; margin: 0; }
+
+        /* Grid Metro */
+        .metro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tile {
+            aspect-ratio: 1 / 1;
+            padding: 15px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            justify-content: flex-end;
+            cursor: pointer;
+            transition: 0.1s;
         }
 
-        /* Kotak Pencarian Melayang */
-        .search-container {
-            position: fixed;
-            top: 20px;
-            z-index: 100;
-            width: 90%;
-            max-width: 400px;
-        }
+        .tile:active { transform: scale(0.95); }
 
-        #searchInput {
-            width: 100%;
-            padding: 15px;
-            border-radius: 30px;
-            border: 1px solid #333;
-            background: rgba(40, 40, 40, 0.9);
-            color: white;
-            outline: none;
-            backdrop-filter: blur(10px);
+        /* Warna Tiles */
+        .blue { background: #0078D7; }
+        .purple { background: #7232AD; }
+        .green { background: #107C10; }
+        .orange { background: #D83B01; }
+
+        .tile h3 { margin: 0; font-size: 1rem; }
+        .tile p { margin: 5px 0 0 0; font-size: 0.75rem; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Zuanxi Music</h1>
+        <p id="now-playing">Pilih lagu untuk memutar</p>
+    </header>
+
+    <div id="player-container">
+        <iframe id="videoPlayer" src="" allow="autoplay"></iframe>
+    </div>
+
+    <div class="metro-grid">
+        
+        <div class="tile blue" onclick="setelLagu('a998E_qO874', 'Gala Bunga Matahari')">
+            <h3>Gala Bunga Matahari</h3>
+            <p>Sal Priadi</p>
+        </div>
+
+        <div class="tile purple" onclick="setelLagu('mR9V-UoB1Dk', 'Sial')">
+            <h3>Sial</h3>
+            <p>Mahalini</p>
+        </div>
+
+        <div class="tile green" onclick="setelLagu('vPj4p-Ew7xQ', 'Nanti Kita Seperti Ini')">
+            <h3>Nanti Kita Seperti Ini</h3>
+            <p>Batas Senja</p>
+        </div>
+
+        <div class="tile orange" onclick="setelLagu('xNByS7jIAs4', 'Satu Bulan')">
+            <h3>Satu Bulan</h3>
+            <p>Bernadya</p>
+        </div>
+
+    </div>
+
+    <script>
+        function setelLagu(videoId, judul) {
+            // Munculkan container player
+            document.getElementById('player-container').style.display = "block";
+            
+            // Ganti isi src iframe ke link embed YouTube agar putar di sini
+            document.getElementById('videoPlayer').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+            
+            // Update teks status
+            document.getElementById('now-playing').innerText = "Memutar: " + judul;
+            
+            // Scroll otomatis ke atas agar player kelihatan
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+
+</body>
+</html>            backdrop-filter: blur(10px);
         }
 
         /* Container Daftar Lagu */
@@ -214,7 +292,7 @@
     </div>
 
     <footer>
-        &copy; 2026 Zuanxi Project - SMK 12th Grade
+        &copy; 2026 Zuanxi Projek 
     </footer>
 
     <script>
