@@ -3,110 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuanxi Music Player</title>
+    <title>Zuanxi Spotify Clone</title>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
             background-color: #000;
             color: white;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            height: 100vh;
         }
 
-        header { margin-bottom: 20px; text-align: center; }
-        h1 { font-weight: 300; color: #1DB954; font-size: 2rem; }
-        #status { color: #888; font-size: 0.9rem; }
-
-    
-        #player-window {
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 16 / 9;
-            margin-bottom: 25px;
-            background: #111;
-            border-radius: 12px;
+        /* Container Utama */
+        .main-container {
+            display: flex;
+            flex: 1;
             overflow: hidden;
-            border: 1px solid #333;
         }
 
-        iframe { width: 100%; height: 100%; border: none; }
-
-
-        .metro-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            width: 100%;
-            max-width: 400px;
+        /* Sidebar (Menu Kiri) */
+        .sidebar {
+            width: 240px;
+            background-color: #000;
+            padding: 20px;
+            display: none; /* Sembunyi di HP agar tidak sempit */
         }
 
-        .tile {
-            aspect-ratio: 1 / 1;
-            padding: 15px;
+        @media (min-width: 768px) {
+            .sidebar { display: block; }
+        }
+
+        /* Daftar Lagu */
+        .content {
+            flex: 1;
+            background: linear-gradient(#121212, #000);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        h1 { font-size: 2rem; margin-bottom: 20px; }
+
+        .song-item {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
             cursor: pointer;
-            border-radius: 8px;
-            transition: 0.1s;
+            transition: background 0.3s;
         }
 
-        .tile:active { transform: scale(0.95); }
-        .blue { background: #0078D7; }
-        .purple { background: #7232AD; }
-        .green { background: #107C10; }
-        .orange { background: #D83B01; }
+        .song-item:hover { background-color: rgba(255,255,255,0.1); }
 
-        .tile h3 { margin: 0; font-size: 0.95rem; line-height: 1.2; }
-        .tile p { margin: 5px 0 0 0; font-size: 0.75rem; opacity: 0.7; }
+        .song-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .song-info h3 { margin: 0; font-size: 1rem; }
+        .song-info p { margin: 5px 0 0 0; font-size: 0.8rem; color: #b3b3b3; }
+
+        /* Bottom Player Bar (Bagian Bawah) */
+        .player-bar {
+            height: 90px;
+            background-color: #181818;
+            border-top: 1px solid #282828;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .current-song { width: 30%; display: flex; align-items: center; }
+        .player-controls { width: 40%; text-align: center; }
+        .player-controls audio { width: 100%; height: 30px; filter: invert(100%); }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Zuanxi Music</h1>
-        <p id="status">Klik kotak untuk putar musik</p>
-    </header>
+    <div class="main-container">
+        <div class="sidebar">
+            <h2 style="color: #1DB954;">Spotify</h2>
+            <p>Home</p>
+            <p>Search</p>
+            <p>Your Library</p>
+        </div>
 
-    <div id="player-window">
-        <div style="height:100%; display:flex; align-items:center; justify-content:center; color:#444;">
-            Pilih lagu di bawah
+        <div class="content">
+            <h1>Good Afternoon</h1>
+            <div id="song-list">
+                <div class="song-item" onclick="playMusic('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'Song One', 'Artist Name')">
+                    <img src="https://via.placeholder.com/50/1DB954/white?text=1" alt="Cover">
+                    <div class="song-info">
+                        <h3>Song One</h3>
+                        <p>Artist Name</p>
+                    </div>
+                </div>
+                <div class="song-item" onclick="playMusic('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 'Song Two', 'Artist Name')">
+                    <img src="https://via.placeholder.com/50/1DB954/white?text=2" alt="Cover">
+                    <div class="song-info">
+                        <h3>Song Two</h3>
+                        <p>Artist Name</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="metro-grid">
-        <div class="tile blue" onclick="putarLagu('a998E_qO874', 'Gala Bunga Matahari')">
-            <h3>Gala Bunga Matahari</h3>
-            <p>Sal Priadi</p>
+    <div class="player-bar">
+        <div class="current-song">
+            <div class="song-info">
+                <h3 id="playing-title">Pilih Lagu</h3>
+                <p id="playing-artist">-</p>
+            </div>
         </div>
-
-        <div class="tile purple" onclick="putarLagu('mR9V-UoB1Dk', 'Sial')">
-            <h3>Sial</h3>
-            <p>Mahalini</p>
-        </div>
-
-        <div class="tile green" onclick="putarLagu('vPj4p-Ew7xQ', 'Nanti Kita Seperti Ini')">
-            <h3>Nanti Kita...</h3>
-            <p>Batas Senja</p>
-        </div>
-
-        <div class="tile orange" onclick="putarLagu('xNByS7jIAs4', 'Satu Bulan')">
-            <h3>Satu Bulan</h3>
-            <p>Bernadya</p>
+        <div class="player-controls">
+            <audio id="main-audio" controls src=""></audio>
         </div>
     </div>
 
     <script>
-        function putarLagu(id, judul) {
-            const player = document.getElementById('player-window');
-            // Gunakan link YouTube Embed yang lebih stabil
-            player.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        function playMusic(url, title, artist) {
+            const audio = document.getElementById('main-audio');
+            audio.src = url;
+            audio.play();
             
-            document.getElementById('status').innerText = "Memutar: " + judul;
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            document.getElementById('playing-title').innerText = title;
+            document.getElementById('playing-artist').innerText = artist;
         }
     </script>
 
