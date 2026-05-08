@@ -11,39 +11,25 @@
     <div class="container">
         <header>
             <h1>Zuanxi Music</h1>
-            <input type="text" id="search" placeholder="Cari lagu...">
+            <input type="text" id="search" placeholder="Cari Reality Club, Hindia, .Feast...">
         </header>
 
         <div class="main-content">
-            <div id="playlist">
-                <div class="song-card" onclick="putar('a998E_qO874', 'Gala Bunga Matahari', 'Sal Priadi')">
-                    <div class="info">
-                        <h3>Gala Bunga Matahari</h3>
-                        <p>Sal Priadi</p>
-                    </div>
-                </div>
+            <div id="lyric-screen" class="lyric-container">
+                <p id="lyric-text">Pilih lagu untuk melihat lirik...</p>
+            </div>
 
-                <div class="song-card" onclick="putar('mR9V-UoB1Dk', 'Sial', 'Mahalini')">
-                    <div class="info">
-                        <h3>Sial</h3>
-                        <p>Mahalini</p>
-                    </div>
-                </div>
+            <div id="playlist"></div>
+        </div>
+
+        <div class="player-bar">
+            <audio id="main-audio" controls></audio>
+            <div class="now-playing">
+                <h4 id="target-judul">Zuanxi Player</h4>
+                <p id="target-artis">Local Stream</p>
             </div>
         </div>
-
-        <<div class="player-bar">
-    <div id="lyric-screen" class="lyric-container">
-        <p id="lyric-text">Pilih lagu untuk melihat lirik...</p>
     </div>
-
-    <div id="spotify-player"></div>
-    
-    <div class="now-playing">
-        <h4 id="target-judul">Zuanxi AI Music</h4>
-        <p id="target-artis">Lirik Otomatis Aktif</p>
-    </div>
-        </div>
 
     <script src="app.js"></script>
 </body>
