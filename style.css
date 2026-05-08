@@ -34,7 +34,7 @@ header {
     padding: 20px;
 }
 
-/* Kotak Lirik */
+/* ========== LYRICS CONTAINER ========== */
 .lyric-container {
     background: rgba(255, 255, 255, 0.05);
     padding: 20px;
@@ -43,8 +43,12 @@ header {
     text-align: center;
     border-left: 4px solid #1DB954;
     min-height: 100px;
+    max-height: 400px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
+/* ========== STYLE LIRIK DARI KASHI ========== */
 #lyric-text {
     font-size: 1.1rem;
     line-height: 1.8;
@@ -52,7 +56,83 @@ header {
     white-space: pre-line;
 }
 
-/* Daftar Lagu */
+/* Setiap baris lirik */
+#lyric-text span {
+    display: block;
+    padding: 12px 0;
+    margin: 4px 0;
+    font-size: 1.1rem;
+    color: #aaa;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* Hover effect */
+#lyric-text span:hover {
+    color: #1DB954;
+    transform: scale(1.02);
+    background: rgba(29, 185, 84, 0.1);
+}
+
+/* ========== ANIMASI LIRIK YANG SEDANG BERJALAN ========== */
+.kashi-active {
+    color: #1DB954 !important;
+    font-size: 1.4rem !important;
+    font-weight: bold !important;
+    text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+    background: rgba(29, 185, 84, 0.15) !important;
+    transform: scale(1.02);
+    animation: lyricPulse 0.5s ease-in-out infinite alternate;
+}
+
+/* Animasi kedip halus */
+@keyframes lyricPulse {
+    0% {
+        text-shadow: 0 0 5px rgba(29, 185, 84, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 15px rgba(29, 185, 84, 0.8);
+    }
+}
+
+/* Animasi fade-in saat lirik muncul pertama kali */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#lyric-text span {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* ========== SCROLLBAR CUSTOM ========== */
+.lyric-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lyric-container::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 10px;
+}
+
+.lyric-container::-webkit-scrollbar-thumb {
+    background: #1DB954;
+    border-radius: 10px;
+}
+
+.lyric-container::-webkit-scrollbar-thumb:hover {
+    background: #0e8c3e;
+}
+
+/* ========== PLAYLIST ========== */
 .song-card {
     background: #121212;
     padding: 15px;
@@ -60,13 +140,28 @@ header {
     margin-bottom: 10px;
     cursor: pointer;
     border: 1px solid #222;
+    transition: all 0.2s ease;
 }
 
-.song-card:hover { background: #181818; border-color: #1DB954; }
-.song-card h3 { margin: 0; font-size: 1rem; color: #1DB954; }
-.song-card p { margin: 5px 0 0 0; color: #888; font-size: 0.8rem; }
+.song-card:hover { 
+    background: #181818; 
+    border-color: #1DB954; 
+    transform: translateX(5px);
+}
 
-/* Control Audio Bawah */
+.song-card h3 { 
+    margin: 0; 
+    font-size: 1rem; 
+    color: #1DB954; 
+}
+
+.song-card p { 
+    margin: 5px 0 0 0; 
+    color: #888; 
+    font-size: 0.8rem; 
+}
+
+/* ========== PLAYER BAR ========== */
 .player-bar {
     background: #050505;
     padding: 15px;
@@ -74,5 +169,18 @@ header {
     text-align: center;
 }
 
-audio { width: 100%; filter: invert(100%) hue-rotate(180deg); }
-.now-playing h4 { margin: 10px 0 0 0; color: #1DB954; }
+audio { 
+    width: 100%; 
+    filter: invert(100%) hue-rotate(180deg); 
+}
+
+.now-playing h4 { 
+    margin: 10px 0 0 0; 
+    color: #1DB954; 
+}
+
+.now-playing p {
+    margin: 5px 0 0 0;
+    color: #888;
+    font-size: 0.8rem;
+}
