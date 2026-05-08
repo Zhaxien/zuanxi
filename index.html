@@ -17,21 +17,28 @@
         }
 
         header { margin-bottom: 20px; text-align: center; }
-        h1 { font-weight: 300; color: #1DB954; }
+        h1 { font-weight: 300; color: #1DB954; font-size: 2rem; }
+        #status { color: #888; font-size: 0.9rem; }
 
-        /* Area Player Spotify */
+    
         #player-window {
             width: 100%;
             max-width: 400px;
-            margin-bottom: 30px;
-            min-height: 152px;
+            aspect-ratio: 16 / 9;
+            margin-bottom: 25px;
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
         }
 
-        /* Grid Metro */
+        iframe { width: 100%; height: 100%; border: none; }
+
+
         .metro-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 12px;
             width: 100%;
             max-width: 400px;
         }
@@ -43,7 +50,8 @@
             flex-direction: column;
             justify-content: flex-end;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 8px;
+            transition: 0.1s;
         }
 
         .tile:active { transform: scale(0.95); }
@@ -52,52 +60,53 @@
         .green { background: #107C10; }
         .orange { background: #D83B01; }
 
-        .tile h3 { margin: 0; font-size: 0.9rem; }
-        .tile p { margin: 5px 0 0 0; font-size: 0.7rem; opacity: 0.8; }
+        .tile h3 { margin: 0; font-size: 0.95rem; line-height: 1.2; }
+        .tile p { margin: 5px 0 0 0; font-size: 0.75rem; opacity: 0.7; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Zuanxi Music</h1>
-        <p id="status">Pilih kotak untuk putar lagu</p>
+        <p id="status">Klik kotak untuk putar musik</p>
     </header>
 
     <div id="player-window">
-        <div id="empty-player" style="border: 2px dashed #333; height: 152px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #555;">
-            Lagu akan muncul di sini
+        <div style="height:100%; display:flex; align-items:center; justify-content:center; color:#444;">
+            Pilih lagu di bawah
         </div>
     </div>
 
     <div class="metro-grid">
-        <div class="tile blue" onclick="putarSpotify('4p4SAnKx8U07D8h3zS9F2S', 'Gala Bunga Matahari')">
+        <div class="tile blue" onclick="putarLagu('a998E_qO874', 'Gala Bunga Matahari')">
             <h3>Gala Bunga Matahari</h3>
             <p>Sal Priadi</p>
         </div>
 
-        <div class="tile purple" onclick="putarSpotify('1v9Msh70V9622p0W72Q8S3', 'Sial')">
+        <div class="tile purple" onclick="putarLagu('mR9V-UoB1Dk', 'Sial')">
             <h3>Sial</h3>
             <p>Mahalini</p>
         </div>
 
-        <div class="tile green" onclick="putarSpotify('4X0pW53M5L7P0D66S8mX6u', 'Nanti Kita Seperti Ini')">
+        <div class="tile green" onclick="putarLagu('vPj4p-Ew7xQ', 'Nanti Kita Seperti Ini')">
             <h3>Nanti Kita...</h3>
             <p>Batas Senja</p>
         </div>
 
-        <div class="tile orange" onclick="putarSpotify('0VvW2LAtY8876p0P29A1vP', 'Satu Bulan')">
+        <div class="tile orange" onclick="putarLagu('xNByS7jIAs4', 'Satu Bulan')">
             <h3>Satu Bulan</h3>
             <p>Bernadya</p>
         </div>
     </div>
 
     <script>
-        function putarSpotify(id, judul) {
-            const playerDiv = document.getElementById('player-window');
-            // Membuat iframe Spotify secara otomatis
-            playerDiv.innerHTML = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${id}?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+        function putarLagu(id, judul) {
+            const player = document.getElementById('player-window');
+            // Gunakan link YouTube Embed yang lebih stabil
+            player.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
             
             document.getElementById('status').innerText = "Memutar: " + judul;
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
     </script>
 
