@@ -2,7 +2,7 @@ const playlist = {
     // REALITY CLUB
     'rc1': { judul: 'Anything You Want', artis: 'Reality Club', url: 'music/anything.mp3', lirik: 'Anything you want, you can make it happen...\nI would do anything for you.' },
     'rc2': { judul: '2112', artis: 'Reality Club', url: 'music/2112.mp3', lirik: 'Lirik lagu 2112...' },
-    'rc3': { judul: 'Alexandra', artis: 'Reality Club', url: 'music/alexandra.mp3', lirik: 'Alexandra, I told you so...' },
+    'rc3': { judul: 'Alexandra', artis: 'Reality Club', url: 'music/alexandra.mp3', Lirik: 'Lirik lagu Alexandra...' },
     'rc4': { judul: 'A Sorrowful Reunion', artis: 'Reality Club', url: 'music/sorrowful.mp3', lirik: 'Lirik lagu A Sorrowful Reunion...' },
     'rc5': { judul: 'Am I Boring You?', artis: 'Reality Club', url: 'music/boring.mp3', lirik: 'Tell me, am I boring you now?' },
     'rc6': { judul: 'You ll Find Lovers Like You and Me', artis: 'Reality Club', url: 'music/lover.mp3', lirik: 'You will find a lover like you and me...' },
