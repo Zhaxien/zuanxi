@@ -3,38 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuanxi Music</title>
+    <title>Zuanxi | Resso Style</title>
     <style>
-        /* Gaya dasar */
+        /* Gaya Dasar ala Aplikasi Musik */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
             color: white;
             margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
         }
 
-        /* Header */
-        header {
-            background-color: #000;
-            width: 100%;
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 2px solid #1DB954;
-        }
-
-        h1 { color: #1DB954; margin: 0; }
-
-        /* Kartu Musik */
-        .container {
-            padding: 20px;
+        /* Kotak Pencarian Melayang */
+        .search-container {
+            position: fixed;
+            top: 20px;
+            z-index: 100;
             width: 90%;
             max-width: 400px;
         }
 
+        #searchInput {
+            width: 100%;
+            padding: 15px;
+            border-radius: 30px;
+            border: 1px solid #333;
+            background: rgba(40, 40, 40, 0.9);
+            color: white;
+            outline: none;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Container Daftar Lagu */
+        #playlist {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 100px; /* Jarak agar tidak tertutup search */
+            padding-bottom: 50px;
+        }
+
+        /* Kartu Lagu ala Resso */
+        .music-card {
+            width: 90%;
+            max-width: 380px;
+            height: 500px; /* Kartu tinggi */
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            transition: transform 0.3s;
+        }
+
+        /* Gambar Album */
+        .album-art {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        /* Info Lagu di Bawah */
+        .info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            text-align: left;
+        }
+
+        .info h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .info p {
+            margin: 5px 0 15px 0;
+            color: #1DB954; /* Hijau Spotify/Resso */
+            font-weight: bold;
+        }
+
+        .btn-play {
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px;
+            color: #555;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="filterLagu()" placeholder="Cari lagu atau artis...">
+    </div>
+
+    <div id="playlist">
+        
+        <div class="music-card">
+            <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=500" class="album-art">
+            <div class="info">
+                <h2>Gala Bunga Matahari</h2>
+                <p>Sal Priadi</p>
+                <a href="https://www.youtube.com/results?search_query=Sal+Priadi+Gala+Bunga+Matahari" target="_blank" class="btn-play">Dengarkan di YouTube</a>
+            </div>
+        </div>
+
+        <div class="music-card">
+            <img src="https://images.unsplash.com/photo-1459749411177-042180ce673c?w=500" class="album-art">
+            <div class="info">
+                <h2>Sial</h2>
+                <p>Mahalini</p>
+                <a href="https://www.youtube.com/results?search_query=Mahalini+Sial" target="_blank" class="btn-play">Dengarkan di YouTube</a>
+            </div>
+        </div>
+
+        <div class="music-card">
+            <img src="https://images.unsplash.com/photo-1514525253361-bee8718a74a2?w=500" class="album-art">
+            <div class="info">
+                <h2>Nanti Kita Seperti Ini</h2>
+                <p>Batas Senja</p>
+                <a href="https://www.youtube.com/results?search_query=Batas+Senja+Nanti+Kita+Seperti+Ini" target="_blank" class="btn-play">Dengarkan di YouTube</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Zuanxi Music - SMK Project
+    </footer>
+
+    <script>
+        function filterLagu() {
+            let input = document.getElementById('searchInput').value.toUpperCase();
+            let cards = document.getElementsByClassName('music-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getElementsByTagName('h2')[0].innerText;
+                let artist = cards[i].getElementsByTagName('p')[0].innerText;
+                
+                if (title.toUpperCase().indexOf(input) > -1 || artist.toUpperCase().indexOf(input) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
         .music-card {
             background: #1e1e1e;
             padding: 15px;
