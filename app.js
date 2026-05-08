@@ -1,41 +1,38 @@
-// app.js - Logika Pemutar Musik Zuanxi
+// Database Lirik (Hasil Generate AI)
+const databaseLirik = {
+    '4p4SAnKx8U07D8h3zS9F2S': `Mungkinkah, mungkinkah
+Kau akan tumbuh di sana?
+Gala bunga matahari
+Yang kusemai dengan doa
 
-function putar(videoId, judul, artis) {
-    // 1. Ambil elemen-elemen yang dibutuhkan
-    const frame = document.getElementById('youtube-frame');
-    const display = document.getElementById('player-display');
+Jika nanti kau telah mekar
+Sampaikan salamku pada angin...`,
+
+    '1v9Msh70V9622p0W72Q8S3': `Takkan pernah siap
+Untuk kehilanganmu
+Sialnya hidup harus berjalan
+Tanpa ada kamu di sisi
+
+Bagaimana cara melupakan
+Segala kenangan yang tertanam?`
+};
+
+function putar(id, judul, artis) {
+    const playerDiv = document.getElementById('spotify-player');
+    const lyricText = document.getElementById('lyric-text');
     const targetJudul = document.getElementById('target-judul');
     const targetArtis = document.getElementById('target-artis');
 
-    // 2. Munculkan kotak player (yang tadinya sembunyi)
-    display.style.display = "block";
+    // 1. Putar Musik
+    playerDiv.innerHTML = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${id}?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
 
-    // 3. Masukkan link video YouTube ke dalam frame
-    // Menggunakan youtube-nocookie agar lebih lancar di web
-    frame.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
-
-    // 4. Update teks judul dan artis di bagian bawah
+    // 2. Munculkan Lirik dari Database AI
+    lyricText.innerText = databaseLirik[id] || "Lirik tidak ditemukan untuk lagu ini.";
+    
+    // 3. Update Info
     targetJudul.innerText = judul;
     targetArtis.innerText = artis;
 
-    // 5. Scroll otomatis ke atas supaya player terlihat
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 4. Animasi Scroll ke Lirik
+    document.getElementById('lyric-screen').scrollTop = 0;
 }
-
-// Fitur Pencarian Lagu
-const searchInput = document.getElementById('search');
-searchInput.addEventListener('keyup', function() {
-    const filter = searchInput.value.toUpperCase();
-    const songCards = document.getElementsByClassName('song-card');
-
-    for (let i = 0; i < songCards.length; i++) {
-        let title = songCards[i].getElementsByTagName('h3')[0].innerText;
-        let artist = songCards[i].getElementsByTagName('p')[0].innerText;
-
-        if (title.toUpperCase().indexOf(filter) > -1 || artist.toUpperCase().indexOf(filter) > -1) {
-            songCards[i].style.display = ""; // Tampilkan jika cocok
-        } else {
-            songCards[i].style.display = "none"; // Sembunyikan jika tidak cocok
-        }
-    }
-});
