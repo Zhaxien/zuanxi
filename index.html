@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuanxi Metro Music | Player</title>
+    <title>Zuanxi Music Player</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -11,30 +11,98 @@
             color: white;
             margin: 0;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        /* Container Player di Atas */
-        #player-container {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto 20px auto;
-            background: #111;
-            border: 2px solid #0078D7;
-            display: none; /* Sembunyi sebelum lagu dipilih */
-            aspect-ratio: 16 / 9;
-        }
-
-        iframe { width: 100%; height: 100%; border: none; }
 
         header { margin-bottom: 20px; text-align: center; }
-        h1 { font-weight: 300; margin: 0; }
+        h1 { font-weight: 300; color: #1DB954; }
+
+        /* Area Player Spotify */
+        #player-window {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 30px;
+            min-height: 152px;
+        }
 
         /* Grid Metro */
         .metro-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-            max-width: 800px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .tile {
+            aspect-ratio: 1 / 1;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .tile:active { transform: scale(0.95); }
+        .blue { background: #0078D7; }
+        .purple { background: #7232AD; }
+        .green { background: #107C10; }
+        .orange { background: #D83B01; }
+
+        .tile h3 { margin: 0; font-size: 0.9rem; }
+        .tile p { margin: 5px 0 0 0; font-size: 0.7rem; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Zuanxi Music</h1>
+        <p id="status">Pilih kotak untuk putar lagu</p>
+    </header>
+
+    <div id="player-window">
+        <div id="empty-player" style="border: 2px dashed #333; height: 152px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #555;">
+            Lagu akan muncul di sini
+        </div>
+    </div>
+
+    <div class="metro-grid">
+        <div class="tile blue" onclick="putarSpotify('4p4SAnKx8U07D8h3zS9F2S', 'Gala Bunga Matahari')">
+            <h3>Gala Bunga Matahari</h3>
+            <p>Sal Priadi</p>
+        </div>
+
+        <div class="tile purple" onclick="putarSpotify('1v9Msh70V9622p0W72Q8S3', 'Sial')">
+            <h3>Sial</h3>
+            <p>Mahalini</p>
+        </div>
+
+        <div class="tile green" onclick="putarSpotify('4X0pW53M5L7P0D66S8mX6u', 'Nanti Kita Seperti Ini')">
+            <h3>Nanti Kita...</h3>
+            <p>Batas Senja</p>
+        </div>
+
+        <div class="tile orange" onclick="putarSpotify('0VvW2LAtY8876p0P29A1vP', 'Satu Bulan')">
+            <h3>Satu Bulan</h3>
+            <p>Bernadya</p>
+        </div>
+    </div>
+
+    <script>
+        function putarSpotify(id, judul) {
+            const playerDiv = document.getElementById('player-window');
+            // Membuat iframe Spotify secara otomatis
+            playerDiv.innerHTML = `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/${id}?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+            
+            document.getElementById('status').innerText = "Memutar: " + judul;
+        }
+    </script>
+
+</body>
+</html>            max-width: 800px;
             margin: 0 auto;
         }
 
